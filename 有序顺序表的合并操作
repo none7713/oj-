@@ -1,0 +1,63 @@
+#include<stdio.h>
+#define Maxsize 50
+typedef struct {
+	int* elem;
+	int length;
+}Sq;
+void Init(Sq& L) {
+	L.elem = new int[Maxsize];
+	L.length = 0;
+}
+void Insert(Sq& L, int num) {
+	L.elem[L.length] = num;
+	L.length++;
+}
+void Add(Sq L1, Sq L2, Sq& L3) {
+	int i = 0, j = 0;
+	while (i < L1.length && j < L2.length) {
+		if (L1.elem[i] < L2.elem[j]) {
+			L3.elem[L3.length] = L1.elem[i];
+			L3.length++;
+			i++;
+		}
+		else {
+			L3.elem[L3.length] = L2.elem[j];
+			L3.length++;
+			j++;
+		}
+	}
+	while (j < L2.length) {
+		L3.elem[L3.length] = L2.elem[j];
+		L3.length++;
+		j++;
+	}
+	while (i < L1.length) {
+		L3.elem[L3.length] = L1.elem[i];
+		L3.length++;
+		i++;
+	}
+}
+void display(Sq &L) {
+	for (int i = 0; i < L.length; i++) {
+		printf("%d ", L.elem[i]);
+	}
+}
+int main() {
+	Sq L1, L2, L3;
+	int n, m, num1, num2;
+	Init(L1);
+	Init(L2);
+	Init(L3);
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &num1);
+		Insert(L1,num1);
+	}
+	scanf("%d", &m);
+	for (int i = 0; i < m; i++) {
+		scanf("%d", &num2);
+		Insert(L2, num2);
+	}
+	Add(L1, L2, L3);
+	display(L3);
+}
